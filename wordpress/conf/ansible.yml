@@ -1,0 +1,13 @@
+- hosts: webserver
+  become: true
+  become_user: root
+  tasks:
+    - name: Pull docker
+      command: docker-compose pull
+      args:
+        chdir: /home/hive-v2/a8551/aimi-crm/aimi-crm-bidflow
+
+    - name: Run docker-compose
+      command: docker-compose up --build -d production
+      args:
+        chdir: /home/hive-v2/a8551/aimi-crm/aimi-crm-bidflow

@@ -1,0 +1,6 @@
+#!/command/with-contenv sh
+s6-setuidgid daemon
+
+
+echo "RUN NGINX"
+nginx -g 'daemon off;'
