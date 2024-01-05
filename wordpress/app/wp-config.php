@@ -21,7 +21,7 @@ define('WP_MEMORY_LIMIT', '512M');
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'wordpress_flimty_my');
+define('DB_NAME', 'wordpress_flimty_my_dev');
 
 /** MySQL database username */
 define('DB_USER', 'flimty_my');
@@ -38,8 +38,8 @@ define('DB_CHARSET', 'utf8mb4');
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
 
-define( 'WP_HOME', 'https://flimty.my' );
-define( 'WP_SITEURL', 'https://flimty.my' );
+define( 'WP_HOME', 'http://88.99.56.36:8082' );
+define( 'WP_SITEURL', 'http://88.99.56.36:8082' );
 
 /**#@+
  * Authentication Unique Keys and Salts.

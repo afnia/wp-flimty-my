@@ -1,0 +1,78 @@
+version: "3.3"
+services:
+  traefik:
+    container_name: traefik
+    image: traefik:v2.4
+    # logging:
+    #   driver: none
+    command:
+      - --log.level=DEBUG
+      - --api.insecure=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entryPoints.web.forwardedHeaders.insecure
+      #- --entrypoints.web.http.redirections.entryPoint.to=https
+      #- --entrypoints.web.http.redirections.entryPoint.scheme=https
+      #- --entrypoints.web.http.redirections.entrypoint.permanent=true
+      - --entrypoints.https.address=:443
+      - --certificatesresolvers.myresolver.acme.tlschallenge=true
+      - --certificatesresolvers.myresolver.acme.email=hanirizo4@gmail.com
+      - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
+      # labels:
+      #- traefik.http.middlewares.redirect.redirectscheme.scheme=https
+    ports:
+      - 443:443
+      - 80:80
+      - 8080:8080
+    volumes:
+      - ./letsencrypt:/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: always
+    # watchtower:
+    #   image: quay.io/asnaguo/baseimg:watchtower
+    #   logging:
+    #     driver: none
+    #   restart: always
+    #   command: --interval 10
+    #   environment:
+    #     - REPO_USER=ikamaiservices
+    #     - REPO_PASS=glpat-cxDJei2xjzMsWCT27DgA
+    #   volumes:
+    #     - /var/run/docker.sock:/var/run/docker.sock
+    #     - /root/.docker/config.json:/config.json
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: sjkdfhsiu4r34r
+      MYSQL_DATABASE: flimty_wordpress
+      MYSQL_USER: flimty_wordpress
+      MYSQL_PASSWORD: sjkdfhsiu4r34r
+    volumes:
+      - mysqldata:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  wordpress:
+    image: registry.gitlab.com/a8551/flimty/flimty-malaysia/wp-flimty-my:dev
+    volumes:
+        - ./wordpress/wp-content:/home/wp-content
+    labels:
+      - traefik.enable=true
+      - "traefik.http.routers.athemywebsite.entrypoints=https"
+      - "traefik.http.routers.athemywebsite.tls.certresolver=myresolver"
+      - "traefik.http.routers.athemywebsite.rule=Host(`flimty-my.aimi.dev`,`allowhttp4.aimi.dev`)"
+      - "traefik.http.routers.ahttpwebsite.entrypoints=web"
+      - "traefik.http.routers.ahttpwebsite.rule=Host(`flimty-my.aimi.dev`,`allowhttp4.aimi.dev`)"
+      - traefik.http.routers.ahttpwebsite.service=svc_lumev4admin
+      - traefik.http.services.svc_lumev4admin.loadbalancer.server.port=80
+      - traefik.http.routers.athemywebsite.service=svc_lumev4admin2
+      - traefik.http.services.svc_lumev4admin2.loadbalancer.server.port=80
+  
+networks:
+  ikamai_apps:
+
+
+volumes:
+  mysqldata:
+    external: true

@@ -37,7 +37,7 @@ RUN docker-php-ext-install \
     zip \
     mysqli
 
-ENV S6_OVERLAY_VERSION=3.1.0.1
+ENV S6_OVERLAY_VERSION=3.1.6.2
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
 RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-x86_64.tar.xz /tmp
@@ -48,6 +48,7 @@ WORKDIR /home
 
 COPY ./wordpress/app /home
 COPY ./wordpress/wp-content /home/wp-content
+COPY ./wp-config.prod.php /home/wp-config.php
 COPY ./conf/phpfpm/php-fpm.d /usr/local/etc/php-fpm.d
 COPY ./conf/phpfpm/php-fpm.conf /usr/local/etc/php-fpm.conf
 COPY ./conf/nginx/nginx.conf /etc/nginx/nginx.conf

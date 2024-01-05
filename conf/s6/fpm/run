@@ -3,6 +3,7 @@ s6-setuidgid daemon
 
 
 # chmod 777 /home/ -R
+chown www-data:www-data /home/ -R
 
 echo "FPM"
 php-fpm -F
