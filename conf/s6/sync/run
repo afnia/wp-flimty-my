@@ -1,0 +1,11 @@
+#!/command/with-contenv sh
+s6-setuidgid root
+
+bash /root/sync.sh
+while true; do
+    # Your code or commands go here
+    print("sleep 300s after sync")
+    # Sleeping for 300 seconds (5 minutes)
+    sleep 300
+    bash /root/sync.sh
+done

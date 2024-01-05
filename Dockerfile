@@ -15,7 +15,9 @@ RUN apt update; apt upgrade -y; \
     libxml2-dev \
     nginx \
     git \
-    rsync
+    rsync \
+    rclone \ 
+    cron
 
 
 RUN docker-php-ext-install \
@@ -43,8 +45,20 @@ RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-x86_64.tar.xz /tmp
 RUN tar -C / -Jxpf /tmp/s6-overlay-x86_64.tar.xz
 
+# ++++++++++++++++++++++
+# Rclone & Cron
+# ++++++++++++++++++++++
+COPY ./conf/rclone.conf /root/.config/rclone/rclone.conf
+COPY ./conf/crontab /etc/cron.d/mycron
+COPY ./conf/sync.sh /root/sync.sh
+RUN chmod 0644 /etc/cron.d/mycron
+RUN crontab /etc/cron.d/mycron
+
 WORKDIR /home
 
+# ++++++++++++++++++++++
+# Main Wordpress
+# ++++++++++++++++++++++
 COPY ./wordpress/app /home
 COPY ./wordpress/wp-content /home/wp-content
 COPY ./wp-config.prod.php /home/wp-config.php
@@ -52,7 +66,11 @@ COPY ./conf/phpfpm/php-fpm.d /usr/local/etc/php-fpm.d
 COPY ./conf/phpfpm/php-fpm.conf /usr/local/etc/php-fpm.conf
 COPY ./conf/nginx/nginx.conf /etc/nginx/nginx.conf
 
+# ++++++++++++++++++++++
+# Services
+# ++++++++++++++++++++++
 COPY ./conf/s6/nginx /etc/services.d/nginx
 COPY ./conf/s6/fpm /etc/services.d/fpm
+COPY ./conf/s6/sync /etc/services.d/sync
 
 ENTRYPOINT [ "/init" ]
