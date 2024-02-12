@@ -1,5 +1,6 @@
 <?php
 define('WP_MEMORY_LIMIT', '512M');
+
 /**
  * The base configuration for WordPress
  *
@@ -21,16 +22,17 @@ define('WP_MEMORY_LIMIT', '512M');
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'wordpress_flimty_my_dev');
+// define('DB_NAME', 'flimty_wordpress_prod');
+define('DB_NAME', 'flimty_wordpress');
 
 /** MySQL database username */
-define('DB_USER', 'flimty_my');
+define('DB_USER', 'flimty_wordpress');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'GF$edcFDWYEYG235');
+define('DB_PASSWORD', 'sjkdfhsiu4r34r');
 
 /** MySQL hostname */
-define('DB_HOST', '88.99.56.36');
+define('DB_HOST', "46.250.233.121");
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8mb4');
@@ -38,8 +40,8 @@ define('DB_CHARSET', 'utf8mb4');
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
 
-define( 'WP_HOME', 'http://88.99.56.36:8082' );
-define( 'WP_SITEURL', 'http://88.99.56.36:8082' );
+define( 'WP_HOME', 'https://malaysia.flimty.co' );
+define( 'WP_SITEURL', 'https://malaysia.flimty.co' );
 
 /**#@+
  * Authentication Unique Keys and Salts.

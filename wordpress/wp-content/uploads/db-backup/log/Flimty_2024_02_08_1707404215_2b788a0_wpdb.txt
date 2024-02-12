@@ -1,0 +1,6 @@
+WordPress Version : 6.4.3
+ Database Version : 11.2.2-MariaDB-1:11.2.2+maria~ubu2204
+ Active Theme Name : LandingPress WP
+ Theme Version : 2.9.11
+ Plugin Count : 10
+ Active Plugins : 5

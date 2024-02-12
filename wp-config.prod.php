@@ -1,5 +1,9 @@
 <?php
+
 define('WP_MEMORY_LIMIT', '512M');
+if ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && strpos( $_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false ) {
+	$_SERVER['HTTPS'] = 'on';
+}
 /**
  * The base configuration for WordPress
  *
@@ -19,27 +23,28 @@ define('WP_MEMORY_LIMIT', '512M');
  * @package WordPress
  */
 
+define( 'WP_HOME', 'https://malaysia.flimty.co' );
+define( 'WP_SITEURL', 'https://malaysia.flimty.co' );
+
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'wordpress_flimty_my');
+// define('DB_NAME', 'flimty_wordpress_prod');
+define('DB_NAME', 'flimty_my_malaysiaflimtyco');
 
 /** MySQL database username */
-define('DB_USER', 'flimty_my');
+define('DB_USER', 'root');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'GF$edcFDWYEYG235');
+define('DB_PASSWORD', 'sjkdfhsiu4r34r');
 
 /** MySQL hostname */
-define('DB_HOST', '88.99.56.36');
+define('DB_HOST', "46.250.233.121");
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8mb4');
 
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
-
-define( 'WP_HOME', 'http://flimty.localhost' );
-define( 'WP_SITEURL', 'http://flimty.localhost' );
 
 /**#@+
  * Authentication Unique Keys and Salts.
@@ -81,7 +86,7 @@ $table_prefix = 'wp_';
  *
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
-define('WP_DEBUG', true);
+define('WP_DEBUG', false);
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */

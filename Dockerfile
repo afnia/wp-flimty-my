@@ -71,6 +71,6 @@ COPY ./conf/nginx/nginx.conf /etc/nginx/nginx.conf
 # ++++++++++++++++++++++
 COPY ./conf/s6/nginx /etc/services.d/nginx
 COPY ./conf/s6/fpm /etc/services.d/fpm
-COPY ./conf/s6/sync /etc/services.d/sync
+# COPY ./conf/s6/sync /etc/services.d/sync
 
 ENTRYPOINT [ "/init" ]

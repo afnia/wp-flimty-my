@@ -1,20 +1,22 @@
-version: "3.3"
-
+version: "2.2"
 services:
-    wordpress:
-        build: .
-        ports:
-            - 8082:80
-        volumes:
-            # - ./wordpress/app:/home
-            - ./wordpress/wp-content:/home/wp-content
-        labels:
-            - traefik.enable=true
-            - traefik.http.routers.flimty_my_web.rule=Host(`flimty.localhost`)
-            - traefik.http.routers.flimty_my_web.entrypoints=web
-            - traefik.http.routers.flimty_my_web.service=flimty_my_web_service
-            - traefik.http.services.flimty_my_web_service.loadbalancer.server.port=80
-        networks:
-            superapp_network:
+  wordpress:
+    image: registry.gitlab.com/a8551/flimty/flimty-malaysia/wp-flimty-my:prod
+    # image: nginx:alpine
+    volumes:
+        - ./wordpress/wp-content:/home/wp-content
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.myflimtysvc.entrypoints=https
+      - traefik.http.routers.myflimtysvc.tls.certresolver=myresolver
+      - traefik.http.routers.myflimtysvc.rule=Host(`malaysia.flimty.co`)
+      - traefik.http.routers.myflimty.entrypoints=web
+      - traefik.http.routers.myflimty.rule=Host(`malaysia.flimty.co`)
+      - traefik.http.routers.myflimty.service=svc_flimtymy
+      - traefik.http.services.svc_flimtymy.loadbalancer.server.port=80
+      - traefik.http.routers.myflimtysvc.service=svc_flimtymy2
+      - traefik.http.services.svc_flimtymy2.loadbalancer.server.port=80 
 networks:
-    superapp_network:
+    default:
+        name: ikamai_apps
+        external: true
