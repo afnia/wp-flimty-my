@@ -5,9 +5,9 @@
     - name: Pull docker
       command: docker-compose pull
       args:
-        chdir: /home/hive-v2/a8551/aimi-crm/aimi-crm-bidflow
+        chdir: /home/wordpress/caradietmudah.com
 
     - name: Run docker-compose
       command: docker-compose up --build -d production
       args:
-        chdir: /home/hive-v2/a8551/aimi-crm/aimi-crm-bidflow
+        chdir: /home/wordpress/caradietmudah.com

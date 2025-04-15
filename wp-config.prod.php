@@ -23,13 +23,13 @@ if ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && strpos( $_SERVER['HTTP_X_FOR
  * @package WordPress
  */
 
-define( 'WP_HOME', 'https://malaysia.flimty.co' );
-define( 'WP_SITEURL', 'https://malaysia.flimty.co' );
+define( 'WP_HOME', 'https://caradietmudah.com' );
+define( 'WP_SITEURL', 'https://caradietmudah.com' );
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 // define('DB_NAME', 'flimty_wordpress_prod');
-define('DB_NAME', 'flimty_my_malaysiaflimtyco');
+define('DB_NAME', 'caradietmudah_com');
 
 /** MySQL database username */
 define('DB_USER', 'root');
@@ -38,7 +38,7 @@ define('DB_USER', 'root');
 define('DB_PASSWORD', 'sjkdfhsiu4r34r');
 
 /** MySQL hostname */
-define('DB_HOST', "46.250.233.121");
+define('DB_HOST', "194.233.82.35");
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8mb4');

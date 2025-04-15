@@ -1,5 +1,5 @@
 [webserver]
-139.99.123.85
+194.233.82.35
 
 [all:vars]
 ansible_user=ubuntu

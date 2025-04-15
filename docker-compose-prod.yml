@@ -1,7 +1,7 @@
 version: "2.2"
 services:
   wordpress:
-    image: registry.gitlab.com/a8551/flimty/flimty-malaysia/wp-flimty-my:prod
+    image: registry.gitlab.com/a8551/caradietmudah/caradietmudah.com:prod
     # image: nginx:alpine
     volumes:
         - ./wordpress/wp-content:/home/wp-content
