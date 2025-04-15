@@ -1,20 +1,26 @@
 version: "3.3"
 
 services:
-    wordpress:
-        build: .
-        ports:
-            - 8082:80
-        volumes:
-            # - ./wordpress/app:/home
-            - ./wordpress/wp-content:/home/wp-content
-        labels:
-            - traefik.enable=true
-            - traefik.http.routers.flimty_my_web.rule=Host(`flimty.localhost`)
-            - traefik.http.routers.flimty_my_web.entrypoints=web
-            - traefik.http.routers.flimty_my_web.service=flimty_my_web_service
-            - traefik.http.services.flimty_my_web_service.loadbalancer.server.port=80
-        networks:
-            superapp_network:
+  wordpress:
+    build: .
+    ports:
+      - 8082:80
+    volumes:
+      # - ./wordpress/app:/home
+      - ./wordpress/wp-content:/home/wp-content
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.caradietmudah.rule=Host(`flimty.localhost`)
+      - traefik.http.routers.caradietmudah.entrypoints=web
+      - traefik.http.routers.caradietmudah.service=caradietmudah_service
+      - traefik.http.services.caradietmudah_service.loadbalancer.server.port=80
+    networks:
+      superapp_network:
+  deploy:
+    image: quay.io/rizoa/ansible:superapp
+    volumes:
+      - ./conf:/home/cfg
+      - ./:/home/apps
+    command: ansible-playbook -i ./cfg/inventory.yml ./cfg/ansible.yml
 networks:
-    superapp_network:
+  superapp_network:

@@ -2,12 +2,28 @@
   become: true
   become_user: root
   tasks:
+    - name: Create directory and parents recursively if not exists
+      file:
+        path: "{{ project_path }}"
+        state: directory
+        recurse: yes
+
+    - name: Copy file to remote server
+      copy:
+        src: "{{ local_path }}/docker-compose-prod.yml"
+        dest: "{{ project_path }}/docker-compose.yml"
+
+    - name: Log in to Docker registry
+      docker_login:
+        registry_url: "{{ docker_registry_url }}"
+        username: "{{ docker_registry_username }}"
+        password: "{{ docker_registry_password }}"
     - name: Pull docker
       command: docker-compose pull
       args:
-        chdir: /home/wordpress/caradietmudah.com
+        chdir: "{{project_path}}"
 
     - name: Run docker-compose
-      command: docker-compose up --build -d production
+      command: docker compose up --build -d
       args:
-        chdir: /home/wordpress/caradietmudah.com
+        chdir: "{{project_path}}"
